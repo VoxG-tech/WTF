@@ -1,3 +1,5 @@
+// Wizards Trolls Farts - English Version
+
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -7,7 +9,7 @@ const HEIGHT = canvas.height;
 const images = {};
 const sounds = {};
 
-let mago, bundas = [], score = 0, recorde = 0, frameCount = 0, gameState = 'menu';
+let wizard, butts = [], score = 0, record = 0, frameCount = 0, gameState = 'menu';
 
 let musicVolume = 0.3;
 let sfxVolume = 0.5;
@@ -19,10 +21,10 @@ let clicked = false;
 
 function loadImages(callback) {
   const paths = {
-    mago: 'data/trollface_mago.png',
-    bunda: 'data/bunda.png',
-    fundo: 'data/fundo.png',
-    fundoGameOver: 'data/fundo_game_over.png'
+    wizard: 'data/trollface_wizard.png',
+    butt: 'data/butt.png',
+    background: 'data/background.png',
+    backgroundGameOver: 'data/background_game_over.png'
   };
   let loaded = 0;
   const total = Object.keys(paths).length;
@@ -37,22 +39,22 @@ function loadImages(callback) {
 }
 
 function loadSounds() {
-  sounds.musica = new Audio('data/musica_fundo.wav');
-  sounds.musica.loop = true;
-  sounds.musica.volume = musicMuted ? 0 : musicVolume;
+  sounds.music = new Audio('data/music_background.wav');
+  sounds.music.loop = true;
+  sounds.music.volume = musicMuted ? 0 : musicVolume;
   document.body.addEventListener('click', () => {
-    if (!musicMuted && sounds.musica.paused) {
-      sounds.musica.play();
+    if (!musicMuted && sounds.music.paused) {
+      sounds.music.play();
     }
   }, { once: true });
 
-  sounds.peido = new Audio('data/peido.wav');
-  sounds.bunda_hit = new Audio('data/bunda_hit.wav');
-  sounds.passou = new Audio('data/passou.wav');
+  sounds.fart = new Audio('data/fart.wav');
+  sounds.butt_hit = new Audio('data/butt_hit.wav');
+  sounds.passed = new Audio('data/passed.wav');
 
-  sounds.peido.volume = sfxMuted ? 0 : sfxVolume;
-  sounds.bunda_hit.volume = sfxMuted ? 0 : sfxVolume;
-  sounds.passou.volume = sfxMuted ? 0 : sfxVolume;
+  sounds.fart.volume = sfxMuted ? 0 : sfxVolume;
+  sounds.butt_hit.volume = sfxMuted ? 0 : sfxVolume;
+  sounds.passed.volume = sfxMuted ? 0 : sfxVolume;
 }
 
 function setupVolumeControls() {
@@ -68,66 +70,66 @@ function setupVolumeControls() {
 
   musicSlider.addEventListener('input', () => {
     musicVolume = parseFloat(musicSlider.value);
-    if (!musicMuted) sounds.musica.volume = musicVolume;
+    if (!musicMuted) sounds.music.volume = musicVolume;
   });
 
   sfxSlider.addEventListener('input', () => {
     sfxVolume = parseFloat(sfxSlider.value);
     if (!sfxMuted) {
-      sounds.peido.volume = sfxVolume;
-      sounds.bunda_hit.volume = sfxVolume;
-      sounds.passou.volume = sfxVolume;
+      sounds.fart.volume = sfxVolume;
+      sounds.butt_hit.volume = sfxVolume;
+      sounds.passed.volume = sfxVolume;
     }
   });
 
   muteMusic.addEventListener('click', () => {
     musicMuted = !musicMuted;
-    sounds.musica.volume = musicMuted ? 0 : musicVolume;
+    sounds.music.volume = musicMuted ? 0 : musicVolume;
     updateMuteButtonStyles();
   });
 
   muteSfx.addEventListener('click', () => {
     sfxMuted = !sfxMuted;
     const vol = sfxMuted ? 0 : sfxVolume;
-    sounds.peido.volume = vol;
-    sounds.bunda_hit.volume = vol;
-    sounds.passou.volume = vol;
+    sounds.fart.volume = vol;
+    sounds.butt_hit.volume = vol;
+    sounds.passed.volume = vol;
     updateMuteButtonStyles();
   });
 
   updateMuteButtonStyles();
 }
 
-class Mago {
+class Wizard {
   constructor() {
     this.x = 80;
     this.y = HEIGHT / 2;
     this.vel = 0;
     this.gravity = 0.5;
     this.jumpStrength = -8;
-    this.particulas = [];
+    this.particles = [];
   }
 
   update() {
     this.vel += this.gravity;
     this.y += this.vel;
-    this.particulas.forEach(p => p.update());
-    this.particulas = this.particulas.filter(p => p.lifetime > 0);
+    this.particles.forEach(p => p.update());
+    this.particles = this.particles.filter(p => p.lifetime > 0);
   }
 
   jump() {
     this.vel = this.jumpStrength;
-    const peido = new Audio('data/peido.wav');
-    peido.volume = sfxMuted ? 0 : sfxVolume;
-    peido.play();
+    const fart = new Audio('data/fart.wav');
+    fart.volume = sfxMuted ? 0 : sfxVolume;
+    fart.play();
     for (let i = 0; i < 3; i++) {
-      this.particulas.push(new Particula(this.x, this.y));
+      this.particles.push(new Particle(this.x, this.y));
     }
   }
 
   draw() {
-    ctx.drawImage(images.mago, this.x - 60, this.y - 60, 120, 120);
-    this.particulas.forEach(p => p.draw());
+    ctx.drawImage(images.wizard, this.x - 60, this.y - 60, 120, 120);
+    this.particles.forEach(p => p.draw());
   }
 
   getRect() {
@@ -135,7 +137,7 @@ class Mago {
   }
 }
 
-class Particula {
+class Particle {
   constructor(x, y) {
     this.x = x;
     this.y = y;
@@ -159,14 +161,14 @@ class Particula {
   }
 }
 
-class Bunda {
+class Butt {
   constructor(x, speed) {
     this.x = x;
     this.speed = speed;
     this.gap = 200;
     this.topHeight = Math.floor(Math.random() * (HEIGHT - this.gap - 100) + 50);
     this.bottomY = this.topHeight + this.gap;
-    this.pontuado = false;
+    this.scored = false;
   }
 
   update() {
@@ -174,11 +176,11 @@ class Bunda {
   }
 
   draw() {
-    ctx.drawImage(images.bunda, this.x - 50, this.topHeight - 400, 100, 400);
+    ctx.drawImage(images.butt, this.x - 50, this.topHeight - 400, 100, 400);
     ctx.save();
     ctx.translate(this.x, this.bottomY);
     ctx.scale(1, -1);
-    ctx.drawImage(images.bunda, -50, -400, 100, 400);
+    ctx.drawImage(images.butt, -50, -400, 100, 400);
     ctx.restore();
   }
 
@@ -208,51 +210,51 @@ function drawText(text, x, y, size = 30, color = 'white') {
 
 function gameLoop() {
   if (gameState === 'menu') {
-    ctx.drawImage(images.fundo, 0, 0, WIDTH, HEIGHT);
+    ctx.drawImage(images.background, 0, 0, WIDTH, HEIGHT);
     drawText('Wizards Trolls Farts', WIDTH/2, 50);
     drawText('Click to Start', WIDTH/2, 340);
-    drawText(`Record: ${recorde}`, WIDTH/2, 380);
+    drawText(`Record: ${record}`, WIDTH/2, 380);
     if (keys.space || clicked) {
       clicked = false;
       startGame();
     }
   } else if (gameState === 'play') {
-    ctx.drawImage(images.fundo, 0, 0, WIDTH, HEIGHT);
+    ctx.drawImage(images.background, 0, 0, WIDTH, HEIGHT);
 
     if (keys.space || clicked) {
-      mago.jump();
+      wizard.jump();
       clicked = false;
       keys.space = false;
     }
 
-    mago.update();
-    mago.draw();
+    wizard.update();
+    wizard.draw();
 
-    if (frameCount % 90 === 0) bundas.push(new Bunda(WIDTH + 50, 4 + Math.floor(score / 5)));
-    bundas.forEach(b => b.update());
-    bundas.forEach(b => b.draw());
-    bundas = bundas.filter(b => b.x > -100);
+    if (frameCount % 90 === 0) butts.push(new Butt(WIDTH + 50, 4 + Math.floor(score / 5)));
+    butts.forEach(b => b.update());
+    butts.forEach(b => b.draw());
+    butts = butts.filter(b => b.x > -100);
 
-    for (let b of bundas) {
-      if (!b.pontuado && b.x + 70 < mago.x) {
+    for (let b of butts) {
+      if (!b.scored && b.x + 70 < wizard.x) {
         score++;
-        b.pontuado = true;
-        if (!sfxMuted) sounds.passou.play();
+        b.scored = true;
+        if (!sfxMuted) sounds.passed.play();
       }
     }
 
     drawText(`Score: ${score}`, 60, 40);
 
-    if (checkCollision(mago.getRect(), bundas.flatMap(b => b.getRects())) || mago.y < 0 || mago.y > HEIGHT) {
-      if (!sfxMuted) sounds.bunda_hit.play();
-      if (score > recorde) recorde = score;
+    if (checkCollision(wizard.getRect(), butts.flatMap(b => b.getRects())) || wizard.y < 0 || wizard.y > HEIGHT) {
+      if (!sfxMuted) sounds.butt_hit.play();
+      if (score > record) record = score;
       gameState = 'gameover';
     }
   } else if (gameState === 'gameover') {
-    ctx.drawImage(images.fundoGameOver, 0, 0, WIDTH, HEIGHT);
+    ctx.drawImage(images.backgroundGameOver, 0, 0, WIDTH, HEIGHT);
     drawText('You need to fart more!', WIDTH/2, HEIGHT/2 - 100);
     drawText(`Score: ${score}`, WIDTH/2, HEIGHT/2);
-    drawText(`Record: ${recorde}`, WIDTH/2, HEIGHT/2 + 40);
+    drawText(`Record: ${record}`, WIDTH/2, HEIGHT/2 + 40);
     drawText('Click to Restart', WIDTH/2, HEIGHT/2 + 120);
     if (keys.space || clicked) {
       clicked = false;
@@ -265,8 +267,8 @@ function gameLoop() {
 }
 
 function startGame() {
-  mago = new Mago();
-  bundas = [];
+  wizard = new Wizard();
+  butts = [];
   score = 0;
   frameCount = 0;
   gameState = 'play';
