@@ -38,7 +38,7 @@ function loadImages(callback) {
 }
 
 function loadSounds() {
-  sounds.music = new Audio('data/background.wav');
+  sounds.music = new Audio('data/music_background.wav');
   sounds.music.loop = true;
   sounds.music.volume = musicMuted ? 0 : musicVolume;
   document.body.addEventListener('click', () => {
