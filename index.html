@@ -39,11 +39,38 @@
 <script>
   function copyCA() {
     const caText = document.getElementById('ca-text').textContent;
-    navigator.clipboard.writeText(caText).then(() => {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(caText)
+        .then(() => {
+          alert('CA copied!');
+        })
+        .catch(err => {
+          console.error('Clipboard error:', err);
+          fallbackCopy(caText);
+        });
+    } else {
+      fallbackCopy(caText);
+    }
+  }
+
+  function fallbackCopy(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'absolute';
+    textarea.style.left = '-9999px';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      document.execCommand('copy');
       alert('CA copied!');
-    });
+    } catch (err) {
+      alert('Could not copy text. Please copy manually.');
+    }
+    document.body.removeChild(textarea);
   }
 </script>
+
 <script>
   fetch("header.html")
     .then(res => res.text())
