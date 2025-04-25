@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wizards, Trolls, Farts - Home</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data/favicon.png" type="image/png">
+</head>
+<body>
+  <div id="site-header"></div>
+  <div class="bg-overlay"></div>
+
+  <main style="padding: 60px 20px;  color: white; text-align: center;">
+    <div style="background: #31531b; padding: 1px; border-radius: 10px; max-width: 700px; margin: 0 auto 40px auto; word-break: break-all;">
+      <h3 style="display: flex; justify-content: center; align-items: center; gap: 10px;">CA: <span id="ca-text">5Uw9BAA5v34ffPXo7QupiXBBmsARxeDLEi4QVf6Lpump</span>
+        <button onclick="copyCA()" style="background: none; border: none; cursor: pointer;">
+          <img src="data/copy.png" alt="Copiar" class="social-icon">
+        </button>
+      </h3>
+    </div>
+    <h2>How to Buy $WTF</h2>
+    <p style="max-width: 700px; margin: 0 auto; line-height: 1.6; font-size: 1.1em;">
+      To Buy <strong>$WTF</strong> follow the steps:
+    </p>
+    
+    <ol style="text-align: center; max-width: 600px; margin: 50px auto;">
+      1. Copy the Contract above <br>
+      2. Paste into your Phantom Wallet<br>
+      3. Choose the quantity and confirm the transaction<br>
+      4. You now own a piece of the WTF<br>
+    </ol>
+    <p style="font-style: italic; color: #ccc;">Attention: always check the official contract to avoid scams.</p>
+  </main>
+  
+  <footer>
+    <p style="text-align: center; color: white; background: #111; padding: 20px;">All Wizards, Trolls, Fart responsibly WTF.</p>
+  </footer>
+<script>
+  function copyCA() {
+    const caText = document.getElementById('ca-text').textContent;
+    navigator.clipboard.writeText(caText).then(() => {
+      alert('CA copiado para a área de transferência!');
+    });
+  }
+</script>
+</body>
+<script>
+  fetch("header.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("site-header").innerHTML = data;
+    });
+</script>
+</html>

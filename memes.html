@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wizards, Trolls, Farts - Memes</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data/favicon.png" type="image/png">
+  <style>
+    .gallery img {
+      width: 100%;
+      border: 2px solid white;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #333;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal img {
+      max-width: 90%;
+      max-height: 90%;
+      border: 4px solid white;
+    }
+    .modal.active {
+      display: flex;
+    }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main style="padding: 10px 20px; background: #111; color: white; text-align: center;">
+    <h2>Wall of WTF Memes</h2>
+    <div class="gallery" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; padding: 20px; max-width: 1000px; margin: 0 auto;">
+      <img src="data/meme1.jpg" alt="Meme 1">
+      <img src="data/meme2.jpg" alt="Meme 2">
+      <img src="data/meme3.jpg" alt="Meme 3">
+      <img src="data/meme4.jpg" alt="Meme 4">
+      <img src="data/meme5.jpg" alt="Meme 5">
+      <img src="data/meme6.jpg" alt="Meme 6">
+      <img src="data/meme7.jpg" alt="Meme 7">
+      <img src="data/meme8.jpg" alt="Meme 8">
+      <img src="data/meme9.jpg" alt="Meme 9">
+      <img src="data/meme10.jpg" alt="Meme 10">
+      <img src="data/meme11.jpg" alt="Meme 11">
+      <img src="data/meme12.jpg" alt="Meme 12">
+      <img src="data/meme13.jpg" alt="Meme 13">
+      <img src="data/meme14.jpg" alt="Meme 14">
+      <img src="data/meme15.jpg" alt="Meme 15">
+      <img src="data/meme16.jpg" alt="Meme 16">
+      <img src="data/meme17.jpg" alt="Meme 17">
+      <img src="data/meme18.jpg" alt="Meme 18">
+      <img src="data/meme19.jpg" alt="Meme 19">
+      <img src="data/meme20.jpg" alt="Meme 20">
+      <img src="data/meme21.jpg" alt="Meme 21">
+      <img src="data/meme22.jpg" alt="Meme 22">
+      <img src="data/meme23.jpg" alt="Meme 23">
+      <img src="data/meme24.jpg" alt="Meme 24">
+      <img src="data/meme25.jpg" alt="Meme 25">
+      <img src="data/meme26.jpg" alt="Meme 26">
+      <img src="data/meme27.jpg" alt="Meme 27">
+      <img src="data/meme28.jpg" alt="Meme 28">
+      <img src="data/meme29.jpg" alt="Meme 29">
+      <img src="data/meme30.jpg" alt="Meme 30">
+      <img src="data/meme31.jpg" alt="Meme 31">
+      <img src="data/meme32.jpg" alt="Meme 32">
+      <img src="data/meme33.jpg" alt="Meme 33">
+      <img src="data/meme34.jpg" alt="Meme 34">
+      <img src="data/meme35.jpg" alt="Meme 35">
+      <img src="data/meme36.jpg" alt="Meme 36">
+
+    </div>
+    <div class="modal" id="imageModal" onclick="this.classList.remove('active')">
+      <img id="modalImage" src="" alt="Expanded Meme">
+    </div>
+    <div class="modal" id="imageModal" onclick="this.classList.remove('active')">
+      <img id="modalImage" src="" alt="Expanded Meme">
+    </div>
+  </main>
+
+  <footer>
+    <p style="text-align: center; color: white; background: #111; padding: 20px;">All Wizards, Trolls, Fart responsibly WTF.</p>
+  </footer>
+  <script>
+    const images = document.querySelectorAll('.gallery img');
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+
+    images.forEach(img => {
+      img.addEventListener('click', () => {
+        modal.classList.add('active');
+        modalImg.src = img.src;
+        modalImg.alt = img.alt;
+      });
+    });
+  </script>
+</body>
+<script>
+  fetch("header.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("site-header").innerHTML = data;
+    });
+</script>
+
+</html>

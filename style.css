@@ -1,0 +1,241 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+
+/* Estilo geral do corpo e fontes */
+:root {
+  --site-font: 'Cinzel';
+}
+
+body {
+  margin: 0;
+  font-family: var(--site-font, Arial), sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url("data/fundo_site.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center -15%;
+  background-attachment: fixed; /* faz o fundo ficar fixo ao rolar */
+  color: white; /* garante contraste com o fundo */
+}
+
+/* Cabeçalho e rodapé */
+.site-header {
+  position: sticky;
+  top: 0;
+  background: #111;
+  color: white;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  padding: 10px 20px;
+}
+
+/* Rodapé */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #111;
+  color: white;
+  padding: 1px;
+  text-align: center;
+} 
+
+/* Container central do jogo */
+#game-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 20px 0;
+  
+}
+
+/* Canvas do jogo */
+canvas {
+  background: #111;
+  border: 2px solid white;
+}
+
+/* Controles de volume */
+.controls {
+  margin: 10px;
+}
+
+.slider-group {
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.slider-group label {
+  color: white;
+}
+
+/* Botões de mute padrão e quando ativados */
+button {
+  padding: 5px 10px;
+  background-color: #333;
+  color: white;
+  border: 1px solid white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+button.active {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  border: 1px solid #fff;
+}
+
+/* Galeria de imagens/memes */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  padding: 20px;
+}
+
+.gallery img {
+  width: 100%;
+  border: 2px solid white;
+  object-fit: cover;
+}
+
+/* Título da galeria */
+.gallery h2 {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+/* Tamanho dos icones */
+  .social-icon {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.2s ease;
+  }
+  .social-icon:hover {
+    transform: scale(1.3);
+  }
+
+  .floating-image {
+    position: fixed;
+    width: 100px;
+    height: 150px;
+    background-image: url("data/lateral.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0;
+    animation: floatUp 6s linear infinite;
+    z-index: 0;
+    pointer-events: none;
+  }
+  
+  .floating-image.left {
+    left: 0;
+  }
+  
+  .floating-image.right {
+    right: 0;
+  }
+  
+  @keyframes floatUp {
+    0% {
+      bottom: -200px;
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      bottom: 100%;
+      opacity: 0;
+    }
+  }
+  
+  /* Camada escura transparente por cima do fundo */
+.bg-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.555); /* Ajuste aqui a opacidade */
+  z-index: -1;
+}
+
+
+
+.site-title {
+  text-align: center;
+  margin: 10px 0;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 1px;
+}
+
+.site-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+
+
+.social-icons img {
+  width: 48px;
+  height: 48px;
+}
+
+.social-icons {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 20px;
+  justify-content: center;
+}
+
+.social-icons li a img {
+  width: 40px;
+  height: 40px;
+  transition: transform 0.3s ease;
+}
+
+.social-icons li a:hover img {
+  transform: scale(1.3);
+}
+
+/* Menu de navegacao */
+.nav-menu {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 10px;
+  margin: 0;
+  font-size: 1.1em;
+  margin-left: 43%; /* Ajuste do menu de navegacao ira ficar */
+}
+
+.nav-menu a {
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  transition: transform 0.3s ease;
+}
+
+.nav-menu a:hover {
+  transform: scale(1.1);
+}
