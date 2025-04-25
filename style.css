@@ -1,24 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
 
-/* Estilo geral do corpo e fontes */
+/* General body and font styles */
 :root {
   --site-font: 'Cinzel';
 }
 
 body {
   margin: 0;
-  font-family: var(--site-font, Arial), sans-serif;
-  margin: 0;
   padding: 0;
+  font-family: var(--site-font, Arial), sans-serif;
   background-image: url("data/site_bg.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center -15%;
-  background-attachment: fixed; /* faz o fundo ficar fixo ao rolar */
-  color: white; /* garante contraste com o fundo */
+  background-attachment: fixed; /* keeps background fixed while scrolling */
+  color: white; /* ensures contrast with the background */
 }
 
-/* Cabeçalho e rodapé */
+/* Header and footer */
 .site-header {
   position: sticky;
   top: 0;
@@ -29,7 +28,7 @@ body {
   padding: 10px 20px;
 }
 
-/* Rodapé */
+/* Footer */
 footer {
   position: fixed;
   bottom: 0;
@@ -39,25 +38,24 @@ footer {
   color: white;
   padding: 1px;
   text-align: center;
-} 
+}
 
-/* Container central do jogo */
+/* Main game container */
 #game-container {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   margin: 20px 0;
-  
 }
 
-/* Canvas do jogo */
+/* Game canvas */
 canvas {
   background: #111;
   border: 2px solid white;
 }
 
-/* Controles de volume */
+/* Volume controls */
 .controls {
   margin: 10px;
 }
@@ -73,7 +71,7 @@ canvas {
   color: white;
 }
 
-/* Botões de mute padrão e quando ativados */
+/* Mute buttons, default and when active */
 button {
   padding: 5px 10px;
   background-color: #333;
@@ -94,7 +92,7 @@ button.active {
   border: 1px solid #fff;
 }
 
-/* Galeria de imagens/memes */
+/* Image/meme gallery */
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -108,7 +106,7 @@ button.active {
   object-fit: cover;
 }
 
-/* Título da galeria */
+/* Gallery title */
 .gallery h2 {
   grid-column: 1 / -1;
   text-align: center;
@@ -116,67 +114,68 @@ button.active {
   margin-bottom: 10px;
 }
 
-/* Tamanho dos icones */
-  .social-icon {
-    width: 40px;
-    height: 40px;
-    transition: transform 0.2s ease;
-  }
-  .social-icon:hover {
-    transform: scale(1.3);
-  }
+/* Social icons size */
+.social-icon {
+  width: 40px;
+  height: 40px;
+  transition: transform 0.2s ease;
+}
 
-  .floating-image {
-    position: fixed;
-    width: 100px;
-    height: 150px;
-    background-image: url("data/lateral.jpg");
-    background-size: contain;
-    background-repeat: no-repeat;
+.social-icon:hover {
+  transform: scale(1.3);
+}
+
+/* Floating side images */
+.floating-image {
+  position: fixed;
+  width: 100px;
+  height: 150px;
+  background-image: url("data/lateral.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0;
+  animation: floatUp 6s linear infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.floating-image.left {
+  left: 0;
+}
+
+.floating-image.right {
+  right: 0;
+}
+
+@keyframes floatUp {
+  0% {
+    bottom: -200px;
     opacity: 0;
-    animation: floatUp 6s linear infinite;
-    z-index: 0;
-    pointer-events: none;
   }
-  
-  .floating-image.left {
-    left: 0;
+  10% {
+    opacity: 1;
   }
-  
-  .floating-image.right {
-    right: 0;
+  80% {
+    opacity: 1;
   }
-  
-  @keyframes floatUp {
-    0% {
-      bottom: -200px;
-      opacity: 0;
-    }
-    10% {
-      opacity: 1;
-    }
-    80% {
-      opacity: 1;
-    }
-    100% {
-      bottom: 100%;
-      opacity: 0;
-    }
+  100% {
+    bottom: 100%;
+    opacity: 0;
   }
-  
-  /* Camada escura transparente por cima do fundo */
+}
+
+/* Transparent dark overlay over the background */
 .bg-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.555); /* Ajuste aqui a opacidade */
+  background: rgba(0, 0, 0, 0.555); /* Adjust opacity here */
   z-index: -1;
 }
 
-
-
+/* Site title */
 .site-title {
   text-align: center;
   margin: 10px 0;
@@ -184,6 +183,7 @@ button.active {
   letter-spacing: 1px;
 }
 
+/* Navigation bar */
 .site-nav {
   display: flex;
   justify-content: space-between;
@@ -191,8 +191,7 @@ button.active {
   flex-wrap: wrap;
 }
 
-
-
+/* Social media icons */
 .social-icons img {
   width: 48px;
   height: 48px;
@@ -217,7 +216,7 @@ button.active {
   transform: scale(1.3);
 }
 
-/* Menu de navegacao */
+/* Navigation menu */
 .nav-menu {
   list-style: none;
   display: flex;
@@ -226,7 +225,7 @@ button.active {
   padding: 10px;
   margin: 0;
   font-size: 1.1em;
-  margin-left: 43%; /* Ajuste do menu de navegacao ira ficar */
+  margin-left: 43%; /* Navigation menu positioning */
 }
 
 .nav-menu a {
